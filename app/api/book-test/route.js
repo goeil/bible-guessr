@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import { loadVerses } from "../../../lib/verses";
 import abbreviationsJson from "../../../data/abbreviations_officielles.json";
-import { distanceMatrix } from "../../../lib/book_closeness";
+//import { distanceMatrix } from "../../../lib/book_closeness";
 
 const abbreviations = abbreviationsJson;
 
@@ -22,8 +22,8 @@ export async function GET() {
   list.forEach((val) => {
     console.log(abbreviations[val.name] + "\t" + val.name);
   });
-  const mat = distanceMatrix;
-  console.log(mat);
-  //return NextResponse.json({ count: list.length, books: list });
-  return NextResponse.json(mat);
+  //const mat = distanceMatrix;
+  //console.log(mat);
+  return NextResponse.json({ count: list.length, books: list });
+  //return NextResponse.json(mat);
 }
