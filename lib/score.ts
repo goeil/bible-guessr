@@ -1,4 +1,5 @@
 import { BibleRef } from "../app/BibleGame";
+import { getDistance } from "./book_closeness.js";
 
 /**
  * Calcule un score en fonction de la distance entre deux nombres.
@@ -15,16 +16,21 @@ export function distanceScore(
   const score = Math.max(0, maxScore - dist * falloff);
   return score;
 }
-function bookScore(realId: number, guessId: number): number {
-  // Exemple : moins sévère que versets → falloff léger
-  return distanceScore(realId, guessId, 45, 6);
+function bookScore(guess: BibleRef, real: BibleRef): number {
+  // 45 points en tout, 6 points de moins par éloignement
+  // 24.11.2025 : amélioration : matrice de correspondance entre livres
+  //    bibliques, qui donne un résultat entre 0 et 100.
+  //    return distanceScore(realId, guessId, 45, 6);
+
+  const score = getDistance(guess.book_abbr, real.book_abbr);
+  return Math.ceil((score * 45) / 100);
 }
-function chapterScore(real: number, guess: number): number {
-  // Exemple : moins sévère que versets → falloff léger
+function chapterScore(guess: number, real: number): number {
+  // 40 points en tout, 3 points de moins par éloignement d'un chaptre
   return distanceScore(real, guess, 40, 3);
 }
-function verseScore(real: number, guess: number): number {
-  // Exemple : moins sévère que versets → falloff léger
+function verseScore(guess: number, real: number): number {
+  // 10 points en tout, 1 point de moins par éloignement d'un verset
   return distanceScore(real, guess, 10, 1);
 }
 
@@ -38,7 +44,7 @@ export function computeScore(real: BibleRef, guess: BibleRef, malus: number) {
     testament = 5;
 
     // livre : entre 0 et 45 points
-    book = bookScore(guess.book_id, real.book_id);
+    book = bookScore(guess, real);
 
     if (guess.book === real.book) {
       // chapitre : entre 0 et 40 points
@@ -51,9 +57,9 @@ export function computeScore(real: BibleRef, guess: BibleRef, malus: number) {
     }
   }
 
-  let total = testament + book + chapter + verse;
+  const total = testament + book + chapter + verse;
 
-  total = Math.round(total * malus);
+  //total = Math.round(total * malus);
 
   return {
     total,
@@ -61,6 +67,7 @@ export function computeScore(real: BibleRef, guess: BibleRef, malus: number) {
     book,
     chapter,
     verse,
+    malus,
   };
 }
 

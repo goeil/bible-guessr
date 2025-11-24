@@ -6,7 +6,6 @@ import { SCORE_GRID } from "../lib/score";
 
 interface ResultCardProps {
   result: Result;
-  helped?: boolean;
   malus?: number;
 }
 
@@ -54,7 +53,7 @@ export function getLevel(percent: number, useException = false): Level {
   };
 }
 
-const ResultCard: React.FC<ResultCardProps> = ({ result, helped, malus }) => {
+const ResultCard: React.FC<ResultCardProps> = ({ result, malus }) => {
   const { score, guess, solution } = result;
   const level = getLevel(score.total, true);
 
@@ -76,6 +75,8 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, helped, malus }) => {
   const stroke = 8;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (animatedScore / 100) * circumference;
+
+  const finalScore = Math.ceil(score.malus * score.total);
 
   return (
     <div
@@ -125,7 +126,7 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, helped, malus }) => {
         `}
           >
             <span className="mr-2 text-8xl">
-              {animatedScore == 100 ? `✅ ${animatedScore}` : animatedScore}
+              {score.total == 100 ? `✅ ${finalScore}` : finalScore}
             </span>
           </div>
 
@@ -156,10 +157,10 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, helped, malus }) => {
       <div className="text-lg font-normal">
         <div className="flex flex-col md:flex-row">
           <div className="md:me-4">Vous avez répondu</div>
-          <div className="font-semibold">{bibleRefToString(guess)}</div>
-          {helped && (
+          <div className="font-semibold md:me-4">{bibleRefToString(guess)}</div>
+          {score.malus != 1 && (
             <div className="font-normal">
-              (💡 avec le contexte = {malus && <span>× {malus}</span>})
+              (💡 avec le contexte = {malus != 1 && <span>× {malus}</span>})
             </div>
           )}
         </div>
