@@ -77,7 +77,7 @@ const ResultCard: React.FC<ResultCardProps> = ({ result }) => {
 
   const finalScore = Math.ceil(score.malus * score.total);
 
-  console.log("result", result);
+  //console.log("result", result);
   return (
     <div
       className={`
