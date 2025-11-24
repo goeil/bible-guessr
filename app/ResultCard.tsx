@@ -6,7 +6,6 @@ import { SCORE_GRID } from "../lib/score";
 
 interface ResultCardProps {
   result: Result;
-  malus?: number;
 }
 
 export type Level = {
@@ -53,7 +52,7 @@ export function getLevel(percent: number, useException = false): Level {
   };
 }
 
-const ResultCard: React.FC<ResultCardProps> = ({ result, malus }) => {
+const ResultCard: React.FC<ResultCardProps> = ({ result }) => {
   const { score, guess, solution } = result;
   const level = getLevel(score.total, true);
 
@@ -78,6 +77,7 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, malus }) => {
 
   const finalScore = Math.ceil(score.malus * score.total);
 
+  console.log("result", result);
   return (
     <div
       className={`
@@ -160,7 +160,8 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, malus }) => {
           <div className="font-semibold md:me-4">{bibleRefToString(guess)}</div>
           {score.malus != 1 && (
             <div className="font-normal">
-              (💡 avec le contexte = {malus != 1 && <span>× {malus}</span>})
+              (💡 avec le contexte ={" "}
+              {score.malus != 1 && <span>× {score.malus}</span>})
             </div>
           )}
         </div>

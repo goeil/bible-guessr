@@ -101,6 +101,7 @@ const BibleGame: React.FC<BibleGameProps> = ({
     myVerse.book_abbr = abbreviations[myVerse.book];
 
     setCurrent(myVerse);
+    console.log("mis en mémoire : ", myVerse);
     setText({ verse: data.verse.text, id: data.id });
     setResult(null);
     setLoading(false);
@@ -206,7 +207,7 @@ const BibleGame: React.FC<BibleGameProps> = ({
             </div>
           )}
 
-          {result && <ResultCard result={result} malus={malusForHelp} />}
+          {result && <ResultCard result={result} />}
         </>
       )}
 
