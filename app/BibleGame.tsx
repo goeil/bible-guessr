@@ -84,8 +84,6 @@ const BibleGame: React.FC<BibleGameProps> = ({
   }
 
   async function nextSet() {
-    console.log("curr", currentSet);
-    console.log("sets", sets);
     if (currentSet == sets) {
       // on arrive à la fin du jeu
       setGameFinished(true);
@@ -110,7 +108,6 @@ const BibleGame: React.FC<BibleGameProps> = ({
   async function loadBooks() {
     const res = await fetch("/api/books");
     const data = await res.json();
-    console.log(data.books);
     setBooks(data.books);
   }
 
@@ -133,13 +130,11 @@ const BibleGame: React.FC<BibleGameProps> = ({
     const chapter = parseInt(chapterStr, 10);
     const verse = parseInt(verseStr, 10);
 
-    console.log("bookName", bookName);
     // Recherche insensible à la casse
     const book = books.find(
       (b) => b.name.toLowerCase() === bookName.toLowerCase(),
     );
 
-    console.log("bookName", book);
     if (!book) {
       return null;
     }
@@ -183,10 +178,8 @@ const BibleGame: React.FC<BibleGameProps> = ({
               <div className="mt-1">
                 <GuessForm
                   onGuess={(guess: string) => {
-                    console.log("guess!", guess);
                     if (books) {
                       const ref = parseBibleRef(guess, books);
-                      console.log("ref!", ref);
                       if (ref) {
                         const score = computeScore(
                           current,

@@ -22,13 +22,10 @@ function isValidVerse(text: string, authorizedBooks: string[]): boolean {
   //const regex = /^(\w+)\s+(\d+):(\d+)$/;
   const regex = /^(.+)\s+(\d+):(\d+)$/;
 
-  console.log("1", text);
   const match = text.match(regex);
-  console.log("match", match);
   if (!match) return false;
 
   const livre = match[1];
-  console.log("2");
   return authorizedBooks.includes(livre);
 }
 
@@ -47,13 +44,11 @@ const GuessForm: React.FC<GuessFormProps> = ({ onGuess }) => {
     const words = text.split(/\s/);
 
     const lastWord = words[words.length - 1];
-    console.log("last");
     // Déclencher le remplacement après <espace>
     // donc lastWord = ""
     if (lastWord === "") {
       //const myAbbr = words[words.length - 2];
       const myAbbr = text.trim().replace(/\s+/g, " ");
-      console.log("myabbr", myAbbr);
       if (myAbbr) {
         const lower = myAbbr.toLowerCase();
         if (abbreviations[lower]) {

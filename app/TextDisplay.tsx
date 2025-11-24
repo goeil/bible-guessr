@@ -8,7 +8,6 @@ interface TextDisplayProps {
 const TextDisplay: React.FC<TextDisplayProps> = ({ text, onHelp }) => {
   if (!text) return <div>pas de texte !</div>;
 
-  console.log(text);
   return (
     <div className="m-4 bg-white rounded-2xl shadow p-6 text-2xl leading-relaxed font-serif">
       <div className="text-gray-300">{text.before}</div>

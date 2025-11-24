@@ -20,10 +20,8 @@ function getContextFromObject(data, id, n = 3) {
 }
 
 export async function GET(req, { params }) {
-  console.log("GET");
   const { id, width } = await params; // id is expected "GEN_1_1" or "PSA_23_1" etc.
   const w = parseInt(width);
-  console.log(id + width);
   const verses = await loadVerses();
   const context = getContextFromObject(verses, id, w);
   if (!context)
