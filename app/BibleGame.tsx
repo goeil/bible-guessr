@@ -8,7 +8,6 @@ import Header from "./Header";
 import TextDisplay from "./TextDisplay";
 
 import abbreviationsJson from "../data/abbreviations_officielles.json";
-import { getDistance } from "../lib/book_closeness.js";
 const abbreviations: Record<string, string> = abbreviationsJson;
 
 interface BibleGameProps {
@@ -21,7 +20,6 @@ export type BibleRef = {
   text?: string;
   book: string;
   book_abbr: string;
-  book_id: number;
   testament: "AT" | "NT";
   chapter: number;
   verse: number;
@@ -47,7 +45,6 @@ export type Score = {
 };
 export type Book = {
   name: string;
-  book_id: number;
   testament: "AT" | "NT";
 };
 export function bibleRefToString(ref: BibleRef, short?: boolean): string {
@@ -150,7 +147,6 @@ const BibleGame: React.FC<BibleGameProps> = ({
     return {
       book: book.name,
       book_abbr: abbreviations[book.name],
-      book_id: book.book_id,
       testament: book.testament,
       chapter,
       verse,

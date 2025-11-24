@@ -10,13 +10,10 @@ export async function GET() {
     if (!booksMap.has(v.book)) {
       booksMap.set(v.book, {
         name: v.book,
-        book_id: v.book_id,
         testament: v.testament,
       });
     }
   }
-  const list = Array.from(booksMap.values()).sort(
-    (a, b) => a.book_id - b.book_id,
-  );
+  const list = Array.from(booksMap.values());
   return NextResponse.json({ count: list.length, books: list });
 }

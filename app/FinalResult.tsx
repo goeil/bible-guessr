@@ -1,6 +1,5 @@
 import React from "react";
 import { getLevel } from "./ResultCard";
-import ProgressBarAnswer from "./ProgressBarAnswer";
 import Stars from "./Stars";
 import { bibleRefToString, getTotalScore, Result } from "./BibleGame";
 import { SCORE_GRID } from "../lib/score";

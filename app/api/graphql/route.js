@@ -8,7 +8,6 @@ const schema = buildSchema(`
   type Verse {
     id: ID!
     book: String!
-    book_id: Int!
     testament: String!
     chapter: Int!
     verse: Int!
