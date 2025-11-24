@@ -1,0 +1,11 @@
+services:
+  bibleguessr:
+    build:
+      context: .
+    ports:
+      - "${APP_PORT}:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    container_name: bible-guessr
