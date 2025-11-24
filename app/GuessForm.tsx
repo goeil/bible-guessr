@@ -84,7 +84,7 @@ const GuessForm: React.FC<GuessFormProps> = ({ onGuess }) => {
 
   return (
     <div className="px-24 w-full text-center">
-      <form onSubmit={handleSubmit} className="flex flex-row gap-3">
+      <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3">
         <input
           autoFocus={true}
           type="text"
