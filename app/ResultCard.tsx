@@ -80,7 +80,7 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, helped, malus }) => {
   return (
     <div
       className={`
-        p-6 rounded-2xl shadow-lg border-2
+        p-2 md:p-6 rounded-2xl shadow-lg border-2
         bg-${level.color}-50 border-${level.color}-400
         transition-all duration-300
         flex flex-col items-center justify-center 
@@ -140,9 +140,12 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, helped, malus }) => {
       </div>
 
       {score.total < 100 && (
-        <p className="text-gray-600 mt-1 text-2xl">
-          Réponse correcte : <strong>{bibleRefToString(solution)}</strong>
-        </p>
+        <div className="text-gray-600 mt-1 text-2xl">
+          <div className="flex flex-col md:flex-row">
+            <div className="md:me-4">Réponse correcte</div>
+            <div className="font-bold">{bibleRefToString(solution)}</div>
+          </div>
+        </div>
       )}
 
       {/* Glow léger si score élevé */}
@@ -150,13 +153,16 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, helped, malus }) => {
         <div className="absolute inset-0 rounded-3xl shadow-[0_0_25px_rgba(34,197,94,0.5)] pointer-events-none animate-pulse"></div>
       )}
       {/* Texte réponse */}
-      <div className="text-lg font-semibold">
-        <div>Vous avez répondu : {bibleRefToString(guess)}</div>
-        {helped && (
-          <div className="font-normal">
-            (💡 avec le contexte = {malus && <span>× {malus}</span>})
-          </div>
-        )}
+      <div className="text-lg font-normal">
+        <div className="flex flex-col md:flex-row">
+          <div className="md:me-4">Vous avez répondu</div>
+          <div className="font-semibold">{bibleRefToString(guess)}</div>
+          {helped && (
+            <div className="font-normal">
+              (💡 avec le contexte = {malus && <span>× {malus}</span>})
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Barres de score*/}

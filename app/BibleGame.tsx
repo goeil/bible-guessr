@@ -7,6 +7,9 @@ import FinalResult from "./FinalResult";
 import Header from "./Header";
 import TextDisplay from "./TextDisplay";
 
+import abbreviationsJson from "../data/abbreviations_officielles.json";
+const abbreviations: Record<string, string> = abbreviationsJson;
+
 interface BibleGameProps {
   sets: number;
   contextWidth: number;
@@ -44,12 +47,14 @@ export type Book = {
   book_id: number;
   testament: "AT" | "NT";
 };
-export function bibleRefToString(ref: BibleRef): string {
-  return ref.book + " " + ref.chapter + ":" + ref.verse;
+export function bibleRefToString(ref: BibleRef, short?: boolean): string {
+  let book = ref.book;
+  if (short) book = abbreviations[book];
+  return book + " " + ref.chapter + ":" + ref.verse;
 }
 
-function getTotalScore(results: Score[]) {
-  return results.reduce((acc, r) => acc + r.total, 0);
+export function getTotalScore(results: Result[]) {
+  return results.reduce((acc, r) => acc + r.score.total, 0);
 }
 
 const BibleGame: React.FC<BibleGameProps> = ({
@@ -57,7 +62,7 @@ const BibleGame: React.FC<BibleGameProps> = ({
   contextWidth,
   malusForHelp,
 }) => {
-  const [game, setGame] = useState<Score[]>([]);
+  const [game, setGame] = useState<Result[]>([]);
   const [currentSet, setCurrentSet] = useState<number>(1);
 
   const [text, setText] = useState<BibleText | null>(null);
@@ -147,7 +152,7 @@ const BibleGame: React.FC<BibleGameProps> = ({
   }, []);
 
   if (!text) {
-    return <>Problème de chargement du verset.</>;
+    return <>⌛ Je charge un verset…</>;
   }
   return (
     <div className="min-h-screen bg-[#f8f4ec] flex flex-col items-center p-6 gap-6">
@@ -178,12 +183,13 @@ const BibleGame: React.FC<BibleGameProps> = ({
                             ? malusForHelp
                             : 1,
                         );
-                        setResult({
+                        const result = {
                           score: score,
                           guess: ref,
                           solution: current,
-                        });
-                        setGame((prev) => [...prev, score]);
+                        };
+                        setResult(result);
+                        setGame((prev) => [...prev, result]);
                       }
                     }
                   }}
@@ -205,12 +211,7 @@ const BibleGame: React.FC<BibleGameProps> = ({
         </>
       )}
 
-      {gameFinished && (
-        <FinalResult
-          points={getTotalScore(game)}
-          percent={(100 * getTotalScore(game)) / (100 * sets)}
-        />
-      )}
+      {gameFinished && <FinalResult game={game} />}
     </div>
   );
 };

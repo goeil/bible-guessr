@@ -30,9 +30,9 @@ const Header: React.FC<HeaderProps> = ({
         />
         <button
           onClick={onRevert}
-          className="bg-emerald-200 hover:bg-emerald-100 text-gray-700 font-semibold py-1 px-2 rounded text-xs md:text-sm"
+          className="bg-emerald-200 hover:bg-emerald-100 text-gray-700 font-semibold py-1 px-2 rounded text-xs md:text-xs"
         >
-          ↻ Recommencer
+          ↻ Nouvelle partie
         </button>
       </div>
 

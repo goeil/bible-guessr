@@ -2,13 +2,19 @@ import React from "react";
 import { getLevel } from "./ResultCard";
 import ProgressBarAnswer from "./ProgressBarAnswer";
 import Stars from "./Stars";
+import { bibleRefToString, getTotalScore, Result } from "./BibleGame";
+import { SCORE_GRID } from "../lib/score";
 
+//points={getTotalScore(game)}
 interface FinalResultProps {
-  points: number;
-  percent: number;
+  game: Result[];
+  //points: number;
+  //percent: number;
 }
 
-const FinalResult: React.FC<FinalResultProps> = ({ points, percent }) => {
+const FinalResult: React.FC<FinalResultProps> = ({ game }) => {
+  const points = getTotalScore(game);
+  const percent = (100 * points) / (100 * game.length);
   const level = getLevel(percent);
   return (
     <div
@@ -23,6 +29,7 @@ const FinalResult: React.FC<FinalResultProps> = ({ points, percent }) => {
       {/* Score dynamique avec pop */}
       <div
         className={`
+          w-full max-w-xl mx-auto space-y-4
           text-2xl font-bold mb-2 text-center
           transform transition-transform duration-500
           ${level.scale ? "scale-" + level.scale : "scale-100"}
@@ -35,9 +42,33 @@ const FinalResult: React.FC<FinalResultProps> = ({ points, percent }) => {
           <span className="">
             <Stars percent={percent} />
           </span>
-          <span className="mt-8">
-            <ProgressBarAnswer label="" points={points} percent={percent} />
-          </span>
+          <div className="flex flex-col md:flex-row gap-4 mx-auto mt-4">
+            {game.map((result, k) => {
+              const percent = (100 * result.score.total) / SCORE_GRID.total;
+              const level = getLevel(percent);
+
+              return (
+                <span
+                  key={k}
+                  className="flex flex-row items-center text-sm font-medium text-heading me-3"
+                >
+                  <span
+                    className={`flex w-2.5 h-2.5 
+                    bg-${level.color}-500
+                    rounded-full me-1.5 shrink-0`}
+                  ></span>
+                  <span
+                    className={`
+                    text-${level.color}-600
+font-semibold
+                      `}
+                  >
+                    {bibleRefToString(result.solution, true)}
+                  </span>
+                </span>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>

@@ -64,6 +64,7 @@ const GuessForm: React.FC<GuessFormProps> = ({ onGuess }) => {
 
     // Transformation des chiffres "1.1" → "1:1"
     newText = newText.replace(/\b(\d+)\.(\d+)\b/g, "$1:$2");
+    newText = newText.replace(/\b(\d+),(\d+)\b/g, "$1:$2");
     newText = newText.replace(/\b(\d+) (\d+)\b/g, "$1:$2");
 
     const valid = isValidVerse(newText, Object.values(abbreviations));
@@ -83,7 +84,7 @@ const GuessForm: React.FC<GuessFormProps> = ({ onGuess }) => {
   };
 
   return (
-    <div className="px-24 w-full text-center">
+    <div className="w-full max-w-xl mx-auto space-y-4">
       <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3">
         <input
           autoFocus={true}
@@ -91,7 +92,7 @@ const GuessForm: React.FC<GuessFormProps> = ({ onGuess }) => {
           value={guess}
           onChange={handleChange}
           placeholder="Tapez votre réponse..."
-          className="border w-92 rounded p-2 focus:outline-none focus:ring"
+          className="border w-fill md:w-92 rounded p-2 focus:outline-none focus:ring bg-emerald-50 text-xl"
         />
         <button
           type="submit"
@@ -102,7 +103,7 @@ const GuessForm: React.FC<GuessFormProps> = ({ onGuess }) => {
           `}
           disabled={!valid}
         >
-          Soumettre
+          Valider
         </button>
       </form>
     </div>
