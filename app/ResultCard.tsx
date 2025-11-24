@@ -88,7 +88,7 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, helped, malus }) => {
       `}
     >
       {/* Cercle SVG */}
-      <div className="flex flex-row gap-6">
+      <div className="flex flex-row gap-2 md:gap-6">
         <div className="flex items-center justify-center">
           <svg width={150} height={150} className="mb-1">
             <circle
@@ -161,7 +161,7 @@ const ResultCard: React.FC<ResultCardProps> = ({ result, helped, malus }) => {
 
       {/* Barres de score*/}
 
-      <div className="grid items-center gap-3">
+      <div className="w-full max-w-xl mx-auto space-y-4">
         <ProgressBarAnswer
           label="testament"
           points={score.testament}
