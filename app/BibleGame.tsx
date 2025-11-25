@@ -161,7 +161,7 @@ const BibleGame: React.FC<BibleGameProps> = ({
     return <>⌛ Je charge un verset…</>;
   }
   return (
-    <div className="min-h-screen bg-[#f8f4ec] flex flex-col items-center p-6 gap-6">
+    <div className="min-h-screen bg-[#f8f4ec] flex flex-col items-center p-2 gap-2 md:p-6 md:gap-6">
       <Header
         currentSet={currentSet}
         totalSets={sets}
@@ -201,7 +201,7 @@ const BibleGame: React.FC<BibleGameProps> = ({
                   }}
                 />
               </div>
-              <div className="mt-8">
+              <div className="mt-4 md:mt-8">
                 <TextDisplay text={text} onHelp={() => addContext()} />
               </div>
             </div>

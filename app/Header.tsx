@@ -18,9 +18,18 @@ const Header: React.FC<HeaderProps> = ({
   resultPresent,
 }) => {
   return (
-    <header className="w-full bg-gray-800 text-white px-4 py-2 flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+    <header
+      className="w-full 
+      bg-gray-800 text-white 
+      px-4 py-2 
+      flex flex-col md:flex-row 
+      items-center justify-between 
+      gap-2 md:gap-0
+      text-sm
+      "
+    >
       {/* Logo + Recommencer */}
-      <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4">
+      <div className="flex flex-row items-center gap-8">
         <Image
           src="/logo.png"
           alt="Logo"
@@ -30,7 +39,10 @@ const Header: React.FC<HeaderProps> = ({
         />
         <button
           onClick={onRevert}
-          className="bg-emerald-200 hover:bg-emerald-100 text-gray-700 font-semibold py-1 px-2 rounded text-xs md:text-xs"
+          className="bg-emerald-200 hover:bg-emerald-100 
+          text-gray-700 font-semibold 
+          py-1 px-2 rounded 
+          text-xs md:text-xs"
         >
           ↻ Nouvelle partie
         </button>
@@ -39,14 +51,16 @@ const Header: React.FC<HeaderProps> = ({
       {/* Manche + Score */}
       <div className="flex flex-row items-center gap-8 text-center">
         <div>
-          <span className="block text-sm text-gray-300">Manche</span>
-          <span className="text-lg font-semibold">
+          <span className="block text-xs md:text-sm text-gray-300">Manche</span>
+          <span className="text-base md:text-xl font-semibold">
             {currentSet} / {totalSets}
           </span>
         </div>
         <div>
-          <span className="block text-sm text-gray-300">Score total</span>
-          <span className="text-lg font-semibold">{score}</span>
+          <span className="block text-xs md:text-sm text-gray-300">
+            Score total
+          </span>
+          <span className="text-base md:text-xl font-semibold">{score}</span>
         </div>
       </div>
 
